@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duol.union.dao.AdviceDao">
+    <select id="queryAdviceList" resultType="Advice">
+        SELECT id,title,date,user_id,state FROM tb_advice
+        ORDER BY id ASC ;
+    </select>
+
+    <select id="queryAdviceById" resultType="Advice">
+        SELECT id,title,content,date,user_id FROM tb_advice
+        WHERE id=#{id};
+    </select>
+
+
+    <delete id="deleteAdviceById">
+        DELETE FROM tb_advice WHERE id=#{id};
+    </delete>
+
+</mapper>
