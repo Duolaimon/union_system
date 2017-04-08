@@ -38,15 +38,16 @@ th {
     line-height: 19px;
     text-align: center;
 }
-
-.horizontal li a{
-    display: block;
-    font-weight: bold;
-    color: #FFFFFF;
+.horizontal li{
+    float: left;
     text-align: center;
     padding: 4px;
-    float: left;
     margin-left: 50px;
+    list-style:none;
+}
+.horizontal a{
+    font-weight: bold;
+    color: #FFFFFF;
     text-decoration: none;
 }
 
