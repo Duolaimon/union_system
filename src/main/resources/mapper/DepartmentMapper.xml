@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duol.union.dao.DepartmentDao">
+    <select id="queryDepartmentList" resultType="org.duol.union.entity.Department">
+        SELECT * FROM tb_department
+        ORDER BY department_id ASC ;
+    </select>
+
+    <select id="queryDepartmentById" resultType="org.duol.union.entity.Department">
+        SELECT * FROM tb_department
+        WHERE department_id = #{departmentId};
+    </select>
+
+    <insert id="insertDepartment">
+        INSERT INTO tb_department
+        VALUES (#{departmentId},#{departmentPassword},#{departmentName});
+    </insert>
+
+    <delete id="deleteDepartmentById">
+        DELETE FROM tb_department
+        WHERE department_id = #{departmentId};
+    </delete>
+</mapper>

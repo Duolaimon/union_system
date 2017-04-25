@@ -11,10 +11,11 @@
     <div id="navigation">
         <ul class="horizontal">
             <li><a href="/admin/showAdviceBody">提案管理</a></li>
-            <li><a href="/admin/showUserBody">成员管理</a></li>
+            <li><a href="/admin/showCommitteeBody">成员管理</a></li>
+            <li><a href="/admin/showDepartmentBody">部门管理</a></li>
         </ul>
     </div>
-    <div id="user-body">
+    <div id="committee-body">
         <table>
             <thead>
             <tr>
@@ -25,16 +26,16 @@
             </tr>
             </thead>
             <tbody>
-            <jsp:useBean id="userList" scope="request" type="java.util.List"/>
-            <c:forEach var="user" items="${userList}">
+            <%--<jsp:useBean id="committeeList" scope="request" type="java.util.List"/>--%>
+            <c:forEach var="committee" items="${committeeList}">
                 <tr>
-                    <td>${user.userId}</td>
-                    <td><input name="userPass" class="user-test" type="text" title="userPass" value="${user.userPass}"/>
+                    <td>${committee.committeeId}</td>
+                    <td><input name="userPass" class="committee-test" type="text" title="userPass" value="${committee.committeePass}"/>
                     </td>
-                    <td><input name="userName" class="user-test" type="text" title="userName" value="${user.userName}"/>
+                    <td><input name="userName" class="committee-test" type="text" title="userName" value="${committee.committeeName}"/>
                     </td>
-                    <td class="handler" onclick="admin.userHandler.deleteUser(${user.userId})">删除</td>
-                    <td class="handler" onclick="admin.userHandler.alterUser(${user.userId},
+                    <td class="handler" onclick="admin.committeeHandler.deleteCommittee(${committee.committeeId})">删除</td>
+                    <td class="handler" onclick="admin.committeeHandler.alterCommittee(${committee.committeeId},
                             this.parentNode.cells[1].firstChild.value,
                             this.parentNode.cells[2].firstChild.value)">
                         修改
@@ -42,10 +43,10 @@
                 </tr>
             </c:forEach>
             <tr>
-                <td><input name="userId" class="user-test" type="text" title="userId"/></td>
+                <td><input name="committeeId" class="committee-test" type="text" title="committeeId"/></td>
                 <td></td>
                 <td></td>
-                <td colspan="2" class="handler" onclick="admin.userHandler.addUser(this)">添加成员</td>
+                <td colspan="2" class="handler" onclick="admin.committeeHandler.addCommittee(this)">添加成员</td>
             </tr>
             </tbody>
         </table>

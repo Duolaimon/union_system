@@ -19,15 +19,15 @@ public interface AdviceDao {
 
     /**
      * 返回指定id的Advice
-     * @param id    Advice id号
+     * @param adviceId    Advice id号
      * @return      Advice
      */
-    Advice queryAdviceById(@Param("id") Integer id);
+    Advice queryAdviceById(@Param("adviceId") Integer adviceId);
 
     /**
      * 删除指定id的Advice
-     * @param id    Advice id号
+     * @param adviceId    Advice id号
      */
-    void deleteAdviceById(@Param("id") Integer id);
+    void deleteAdviceById(@Param("adviceId") Integer adviceId);
 
 }

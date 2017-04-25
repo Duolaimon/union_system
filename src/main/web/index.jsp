@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<form method="post" action="${pageContext.request.contextPath}admin/index">
+<form method="post" action="/admin/index">
     username:<label>
     <input type="text" name="username">
 </label><br/>

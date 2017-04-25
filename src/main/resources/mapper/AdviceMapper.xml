@@ -4,18 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.duol.union.dao.AdviceDao">
     <select id="queryAdviceList" resultType="Advice">
-        SELECT id,title,date,user_id,state FROM tb_advice
-        ORDER BY id ASC ;
+        SELECT * FROM tb_advice
+        ORDER BY advice_id ASC ;
     </select>
 
     <select id="queryAdviceById" resultType="Advice">
-        SELECT id,title,content,date,user_id FROM tb_advice
-        WHERE id=#{id};
+        SELECT * FROM tb_advice
+        WHERE advice_id=#{adviceId};
     </select>
 
 
     <delete id="deleteAdviceById">
-        DELETE FROM tb_advice WHERE id=#{id};
+        DELETE FROM tb_advice WHERE advice_id=#{adviceId};
     </delete>
 
 </mapper>

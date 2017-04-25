@@ -8,14 +8,15 @@ div {
     float: left;
 }
 
-table, td, th {
+td, th {
     text-align: center;
+    border: 1px solid #98bf21;
 }
 
 table {
-    width:800px;
+    width: 800px;
     margin: 0 auto;
-    border: 1px solid #98bf21;
+    border-collapse: collapse;
 }
 
 th {
@@ -38,14 +39,16 @@ th {
     line-height: 19px;
     text-align: center;
 }
-.horizontal li{
+
+.horizontal li {
     float: left;
     text-align: center;
     padding: 4px;
     margin-left: 50px;
-    list-style:none;
+    list-style: none;
 }
-.horizontal a{
+
+.horizontal a {
     font-weight: bold;
     color: #FFFFFF;
     text-decoration: none;
@@ -65,9 +68,18 @@ th {
     width: 100%;
 }
 
-#user-body {
+#committee-body {
     width: 100%;
 }
-#user-body .user-test{
+
+#department-body {
+    width: 100%;
+}
+
+#committee-body .committee-test {
+    width: 70px;
+}
+
+#department-body .department-test {
     width: 70px;
 }

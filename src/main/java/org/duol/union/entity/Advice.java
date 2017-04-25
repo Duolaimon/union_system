@@ -7,26 +7,45 @@ import java.util.Date;
  *         17-3-25 下午1:49
  */
 public class Advice {
-    private Integer id;
+    private Integer adviceId;
 
     private String title;
 
-    private String content;
+    private String adviceContent;
 
-    private Date date;
+    private Date adviceTime;
 
     private String userId;
 
-    private Integer state;
+    private Integer adviceState;
 
+    private Integer count;
 
-    public Integer getId() {
-        return id;
+    private String departmentId;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public Integer getAdviceId() {
+        return adviceId;
     }
 
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAdviceId(Integer adviceId) {
+        this.adviceId = adviceId;
     }
 
     public String getUserId() {
@@ -45,27 +64,27 @@ public class Advice {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getAdviceContent() {
+        return adviceContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setAdviceContent(String adviceContent) {
+        this.adviceContent = adviceContent;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getAdviceTime() {
+        return adviceTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAdviceTime(Date adviceTime) {
+        this.adviceTime = adviceTime;
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getAdviceState() {
+        return adviceState;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setAdviceState(Integer adviceState) {
+        this.adviceState = adviceState;
     }
 }

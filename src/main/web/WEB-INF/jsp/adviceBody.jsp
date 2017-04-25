@@ -11,7 +11,8 @@
     <div id="navigation">
         <ul class="horizontal">
             <li><a href="/admin/showAdviceBody">提案管理</a></li>
-            <li><a href="/admin/showUserBody">成员管理</a></li>
+            <li><a href="/admin/showCommitteeBody">成员管理</a></li>
+            <li><a href="/admin/showDepartmentBody">部门管理</a></li>
         </ul>
     </div>
     <div id="advice-body">
@@ -23,27 +24,29 @@
                 <th>提案教师职工号</th>
                 <th>状态</th>
                 <th>时间</th>
+                <th>提案部门</th>
                 <th>处理</th>
             </tr>
             </thead>
             <tbody>
-            <jsp:useBean id="adviceList" scope="request" type="java.util.List"/>
-            <jsp:useBean id="sdf" scope="request" type="java.text.SimpleDateFormat"/>
+            <%--<jsp:useBean id="adviceList" scope="request" type="java.util.List"/>--%>
+            <%--<jsp:useBean id="sdf" scope="request" type="java.text.SimpleDateFormat"/>--%>
             <c:forEach var="advice" items="${adviceList}">
             <tr>
-                <td>${advice.id}</td>
-                <td><a href="/admin/${advice.id}/content">${advice.title}</a></td>
+                <td>${advice.adviceId}</td>
+                <td><a href="/admin/${advice.adviceId}/content">${advice.title}</a></td>
                 <td>${advice.userId}</td>
                 <td>
                     <c:choose>
-                        <c:when test="${advice.state==0}">待审核</c:when>
-                        <c:when test="${advice.state==-1}">审核未通过</c:when>
-                        <c:when test="${advice.state==1}">审核通过</c:when>
+                        <c:when test="${advice.adviceState==0}">待审核</c:when>
+                        <c:when test="${advice.adviceState==2}">审核未通过</c:when>
+                        <c:when test="${advice.adviceState==1}">审核通过</c:when>
                         <c:otherwise>未知状态</c:otherwise>
                     </c:choose>
                 </td>
-                <td>${sdf.format(advice.date)}</td>
-                <td class="handler" onclick="admin.adviceHandler.deleteAdvice(${advice.id})">删除</td>
+                <td>${sdf.format(advice.adviceTime)}</td>
+                <td>${advice.departmentId}</td>
+                <td class="handler" onclick="admin.adviceHandler.deleteAdvice(${advice.adviceId})">删除</td>
             </tr>
             </tbody>
             </c:forEach>
