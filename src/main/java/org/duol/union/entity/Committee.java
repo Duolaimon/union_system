@@ -1,9 +1,5 @@
 package org.duol.union.entity;
 
-/**
- * @author deity
- *         17-3-25 下午2:10
- */
 public class Committee {
     private String committeeId;
 
@@ -11,14 +7,22 @@ public class Committee {
 
     private String committeeName;
 
+    public Committee(String committeeId, String committeePass, String committeeName) {
+        this.committeeId = committeeId;
+        this.committeePass = committeePass;
+        this.committeeName = committeeName;
+    }
 
+    public Committee() {
+        super();
+    }
 
     public String getCommitteeId() {
         return committeeId;
     }
 
     public void setCommitteeId(String committeeId) {
-        this.committeeId = committeeId;
+        this.committeeId = committeeId == null ? null : committeeId.trim();
     }
 
     public String getCommitteePass() {
@@ -26,7 +30,7 @@ public class Committee {
     }
 
     public void setCommitteePass(String committeePass) {
-        this.committeePass = committeePass;
+        this.committeePass = committeePass == null ? null : committeePass.trim();
     }
 
     public String getCommitteeName() {
@@ -34,6 +38,6 @@ public class Committee {
     }
 
     public void setCommitteeName(String committeeName) {
-        this.committeeName = committeeName;
+        this.committeeName = committeeName == null ? null : committeeName.trim();
     }
 }

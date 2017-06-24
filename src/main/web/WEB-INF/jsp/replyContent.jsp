@@ -1,6 +1,6 @@
+<jsp:useBean id="reply" scope="request" type="org.duol.union.entity.Reply"/>
 <jsp:useBean id="advice" scope="request" type="org.duol.union.entity.Advice"/>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="committeeName" scope="request" type="java.lang.String"/>
 <jsp:useBean id="contentList" scope="request" type="java.util.List"/>
 <jsp:useBean id="sdf" scope="request" type="java.text.SimpleDateFormat"/>
 
@@ -20,21 +20,15 @@
     </style>
 </head>
 <body>
-<h2 class="title">${advice.title}</h2>
-<h4 class="author">${committeeName}---${sdf.format(advice.adviceTime)}</h4>
+<h2 class="title">回复${advice.title}</h2>
+<h4 class="author">${sdf.format(reply.replyTime)}</h4>
 <div id="committee-body">
     <%@include file="navigation.jsp"%>
-    <h3>内容：</h3>
     <div class="adviceContent">
-        <c:forEach var="adviceContent" items="${contentList}">
-            ${adviceContent}<br/>
+        <c:forEach var="content" items="${contentList}">
+            ${content}<br/>
         </c:forEach>
-    </div>
-    <br/>
-    <br/>
-    <h2 style="padding-top:40px">建议措施:</h2>
-    <div class="adviceContent">
-        ${advice.adviceDo}
+
     </div>
 </div>
 </body>

@@ -6,7 +6,7 @@
     <script>
         var type;
         window.onload=function () {
-            type = 'Committee';
+            type = 'Leader';
         }
     </script>
 </head>
@@ -17,23 +17,23 @@
         <table>
             <thead>
             <tr>
-                <th>职工号</th>
-                <th>职工密码</th>
-                <th>职工姓名</th>
+                <th>领导号</th>
+                <th>领导密码</th>
+                <th>领导姓名</th>
                 <th colspan="2">处理</th>
             </tr>
             </thead>
             <tbody>
-            <jsp:useBean id="committeeList" scope="request" type="java.util.List"/>
-            <c:forEach var="committee" items="${committeeList}">
+            <jsp:useBean id="leaderList" scope="request" type="java.util.List"/>
+            <c:forEach var="leader" items="${leaderList}">
                 <tr>
-                    <td>${committee.committeeId}</td>
-                    <td><input name="userPass" class="committee-test" type="text" title="userPass" value="${committee.committeePass}"/>
+                    <td>${leader.leaderId}</td>
+                    <td><input name="userPass" class="committee-test" type="text" title="userPass" value="${leader.leaderPassword}"/>
                     </td>
-                    <td><input name="userName" class="committee-test" type="text" title="userName" value="${committee.committeeName}"/>
+                    <td><input name="userName" class="committee-test" type="text" title="userName" value="${leader.leaderName}"/>
                     </td>
-                    <td class="handler" onclick="admin.userHandler.deleteUser('${committee.committeeId}',type)">删除</td>
-                    <td class="handler" onclick="admin.userHandler.alterUser('${committee.committeeId}',
+                    <td class="handler" onclick="admin.userHandler.deleteUser(${leader.leaderId},type)">删除</td>
+                    <td class="handler" onclick="admin.userHandler.alterUser(${leader.leaderId},
                             this.parentNode.cells[1].firstChild.value,
                             this.parentNode.cells[2].firstChild.value,type)">
                         修改
@@ -53,5 +53,6 @@
 <script type="application/javascript"
         src="${pageContext.request.contextPath}/resources/js/manager.js">
 </script>
+
 </body>
 </html>

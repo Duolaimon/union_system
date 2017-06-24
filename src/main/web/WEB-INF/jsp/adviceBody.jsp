@@ -2,51 +2,60 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>管理员账户</title>
-    <meta http-equiv="content-Type" content="text/html;charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/manager.css">
+    <%@include file="head.jsp"%>
+    <script>
+        var type;
+        window.onload=function () {
+            type = 'Advice';
+        }
+    </script>
 </head>
 <body>
 <div id="admin-body">
-    <div id="navigation">
-        <ul class="horizontal">
-            <li><a href="/admin/showAdviceBody">提案管理</a></li>
-            <li><a href="/admin/showCommitteeBody">成员管理</a></li>
-            <li><a href="/admin/showDepartmentBody">部门管理</a></li>
-        </ul>
-    </div>
+    <%@include file="navigation.jsp"%>
     <div id="advice-body">
         <table>
             <thead>
             <tr>
                 <th>提案id号</th>
                 <th>提案标题</th>
-                <th>提案教师职工号</th>
+                <th>职工号</th>
                 <th>状态</th>
+                <th>点赞数</th>
+                <th>点赞人</th>
+                <th>提案人</th>
+                <th>联系方式</th>
                 <th>时间</th>
-                <th>提案部门</th>
+                <th>提案人部门</th>
+                <th>被提案部门</th>
                 <th>处理</th>
             </tr>
             </thead>
             <tbody>
-            <%--<jsp:useBean id="adviceList" scope="request" type="java.util.List"/>--%>
-            <%--<jsp:useBean id="sdf" scope="request" type="java.text.SimpleDateFormat"/>--%>
+            <jsp:useBean id="adviceList" scope="request" type="java.util.List"/>
+            <jsp:useBean id="sdf" scope="request" type="java.text.SimpleDateFormat"/>
             <c:forEach var="advice" items="${adviceList}">
             <tr>
                 <td>${advice.adviceId}</td>
-                <td><a href="/admin/${advice.adviceId}/content">${advice.title}</a></td>
+                <td><a href="/admin/${advice.adviceId}/adviceContent">${advice.title}</a></td>
                 <td>${advice.userId}</td>
                 <td>
-                    <c:choose>
-                        <c:when test="${advice.adviceState==0}">待审核</c:when>
-                        <c:when test="${advice.adviceState==2}">审核未通过</c:when>
-                        <c:when test="${advice.adviceState==1}">审核通过</c:when>
+                    <%--<c:choose>
+                        <c:when test="${event.adviceState==0}">待审核</c:when>
+                        <c:when test="${event.adviceState==2}">审核未通过</c:when>
+                        <c:when test="${event.adviceState==1}">审核通过</c:when>
                         <c:otherwise>未知状态</c:otherwise>
-                    </c:choose>
+                    </c:choose>--%>
+                    ${advice.adviceState}
                 </td>
+                <td>${advice.count}</td>
+                <td>${advice.adviceAgree}</td>
+                <td>${advice.adviceName}</td>
+                <td>${advice.contactway}</td>
                 <td>${sdf.format(advice.adviceTime)}</td>
+                <td>${advice.adviceWorkspace}</td>
                 <td>${advice.departmentId}</td>
-                <td class="handler" onclick="admin.adviceHandler.deleteAdvice(${advice.adviceId})">删除</td>
+                <td class="handler" onclick="admin.adminHandler.deleteAdvice(${advice.adviceId},type)">删除</td>
             </tr>
             </tbody>
             </c:forEach>

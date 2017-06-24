@@ -9,19 +9,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>管理员账户</title>
-    <meta http-equiv="content-Type" content="text/html;charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/manager.css">
+    <%@include file="head.jsp" %>
+    <script>
+        var type;
+        window.onload = function () {
+            type = 'Department';
+        }
+    </script>
 </head>
 <body>
 <div id="admin-body">
-    <div id="navigation">
-        <ul class="horizontal">
-            <li><a href="/admin/showAdviceBody">提案管理</a></li>
-            <li><a href="/admin/showCommitteeBody">成员管理</a></li>
-            <li><a href="/admin/showDepartmentBody">部门管理</a></li>
-        </ul>
-    </div>
+    <%@include file="navigation.jsp" %>
     <div id="department-body">
         <table>
             <thead>
@@ -36,21 +34,27 @@
             <c:forEach var="department" items="${departmentList}">
                 <tr>
                     <td>${department.departmentId}</td>
-                    <td><input name="departmentPass" class="department-test" type="text" title="departmentPassword" value="${department.departmentPassword}"/>
+                    <td><input name="departmentPass" class="department-test" type="text" title="departmentPassword"
+                               value="${department.departmentPassword}"/>
                     </td>
-                    <td><input name="departmentName" class="department-test" type="text" title="departmentName" value="${department.departmentName}"/>
+                    <td><input name="departmentName" class="department-test" type="text" title="departmentName"
+                               value="${department.departmentName}"/>
                     </td>
-                    <td class="handler" onclick="admin.departmentHandler.deleteDepartment(${department.departmentId})">删除</td>
+                    <td class="handler" onclick="admin.userHandler.deleteUser(${department.departmentId},type)">
+                        删除
+                    </td>
 
                 </tr>
             </c:forEach>
             <tr>
                 <td><input name="departmentId" class="department-test" type="text" title="departmentId"/></td>
-                <td><input name="departmentPassword" class="department-test" type="text" title="departmentPassword"/></td>
+                <td><input name="departmentPassword" class="department-test" type="text" title="departmentPassword"/>
+                </td>
                 <td><input name="departmentName" class="department-test" type="text" title="departmentName"/></td>
                 <td class="handler" onclick="admin.departmentHandler.addDepartment(this.parentNode.cells[0].firstChild.value,
                         this.parentNode.cells[1].firstChild.value,
-                        this.parentNode.cells[2].firstChild.value)">添加成员</td>
+                        this.parentNode.cells[2].firstChild.value)">添加成员
+                </td>
             </tr>
             </tbody>
         </table>

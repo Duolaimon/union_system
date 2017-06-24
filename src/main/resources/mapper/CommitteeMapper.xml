@@ -4,31 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.duol.union.dao.CommitteeDao">
     <select id="queryCommitteeList" resultType="org.duol.union.entity.Committee">
-        SELECT committee_id,committee_pass,committee_name FROM tb_committee;
+        SELECT committee_id,committee_pass,committee_name FROM db_union.tb_committee;
     </select>
 
     <select id="queryCommitteeById" resultType="org.duol.union.entity.Committee">
-        SELECT committee_id,committee_pass,committee_name FROM tb_committee
+        SELECT committee_id,committee_pass,committee_name FROM db_union.tb_committee
         WHERE committee_id=#{committeeId};
     </select>
 
     <delete id="deleteCommitteeById">
-        DELETE FROM tb_committee WHERE committee_id=#{committeeId};
+        DELETE FROM db_union.tb_committee WHERE committee_id=#{committeeId};
     </delete>
 
     <insert id="insertCommittee">
-        insert into tb_committee (committee_id) values (#{committeeId});
+        insert into db_union.tb_committee (committee_id,committee_pass) values (#{committeeId},'123456');
     </insert>
 
-    <update id="updateCommitteePassword">
-        UPDATE tb_committee SET committee_pass=#{committeePass} WHERE committee_id=#{committeeId};
-    </update>
-
-    <update id="updateCommitteeName">
-        UPDATE tb_committee SET committee_name=#{committeeName} WHERE committee_id=#{committeeId};
-    </update>
-
     <update id="updateCommittee">
-        UPDATE tb_committee SET committee_pass=#{committeePass},committee_name=#{committeeName} WHERE committee_id=#{committeeId};
+        UPDATE db_union.tb_committee SET committee_pass=#{committeePass},committee_name=#{committeeName} WHERE committee_id=#{committeeId};
     </update>
 </mapper>

@@ -2,6 +2,7 @@
   <dictionary name="deity">
     <words>
       <w>mariadb</w>
+      <w>onload</w>
       <w>xmlhttp</w>
     </words>
   </dictionary>

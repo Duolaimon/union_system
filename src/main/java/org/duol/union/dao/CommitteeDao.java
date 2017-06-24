@@ -37,20 +37,6 @@ public interface CommitteeDao {
     void deleteCommitteeById(@Param("committeeId") String committeeId);
 
     /**
-     * 更新指定id的密码
-     * @param committeeId    用户id号
-     * @param committeePass  用户新密码
-     */
-    void updateCommitteePassword(@Param("committeeId") String committeeId, @Param("committeePass") String committeePass);
-
-    /**
-     * 更新指定id的姓名
-     * @param committeeId    用户id号
-     * @param committeeName  用户姓名
-     */
-    void updateCommitteeName(@Param("committeeId") String committeeId, @Param("committeeName") String committeeName);
-
-    /**
      * 更新指定id的密码和姓名
      * @param committeeId    用户id号
      * @param committeePass  用户密码

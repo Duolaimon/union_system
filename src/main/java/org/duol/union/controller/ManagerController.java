@@ -1,11 +1,7 @@
 package org.duol.union.controller;
 
-import org.duol.union.entity.Advice;
-import org.duol.union.entity.Committee;
-import org.duol.union.entity.Department;
-import org.duol.union.service.AdviceService;
-import org.duol.union.service.CommitteeService;
-import org.duol.union.service.DepartmentService;
+import org.duol.union.dao.*;
+import org.duol.union.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,28 +15,34 @@ import java.util.List;
  * @author deity
  *         17-3-25 下午12:39
  *         <p>
- *         管理员进入管理界面后相关操作
+ *         内容展示相关,包括：
+ *          1)提案(Advice)
+ *          2)新闻(News)
+ *          3)回复(Reply)
+ *          4)通知(Event)
+ *          5)会议(Meeting)
  */
 @Controller
 @RequestMapping("/admin")
+@SuppressWarnings("unused")
 public class ManagerController {
-    private final AdviceService adviceService;
-    private final CommitteeService committeeService;
-    private final DepartmentService departmentService;
+    private final AdviceDao adviceDao;
+    private final EventDao eventDao;
+    private final CommitteeDao committeeDao;
+    private final MeetingDao meetingDao;
+    private final NewsDao newsDao;
+    private final ReplyDao replyDao;
 
     @Autowired
-    public ManagerController(AdviceService adviceService, CommitteeService committeeService, DepartmentService departmentService) {
-        this.adviceService = adviceService;
-        this.committeeService = committeeService;
-        this.departmentService = departmentService;
+    public ManagerController(AdviceDao adviceDao, EventDao eventDao, CommitteeDao committeeDao, MeetingDao meetingDao, NewsDao newsDao, ReplyDao replyDao) {
+        this.adviceDao = adviceDao;
+        this.eventDao = eventDao;
+        this.committeeDao = committeeDao;
+        this.meetingDao = meetingDao;
+        this.newsDao = newsDao;
+        this.replyDao = replyDao;
     }
 
-    private boolean modifiedAdvice;     //advice表是否被修改
-    private boolean modifiedCommittee;       //Committee表是否被修改
-    private boolean modifiedDepartment;
-    private List<Advice> adviceList;
-    private List<Committee> committeeList;
-    private List<Department> departmentList;
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
@@ -56,16 +58,10 @@ public class ManagerController {
     @SuppressWarnings("unused")
     public String managerIndex(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
         if ("admin".equals(username) && "admin".equals(password)) {
-            adviceList = adviceService.getAdviceList();
-            committeeList = committeeService.getCommitteeList();
-            departmentList = departmentService.getDepartmentList();
+            List<Advice> adviceList = adviceDao.queryAdviceList();
             sdf = new SimpleDateFormat("yyyy-MM-dd");
             model.addAttribute("adviceList", adviceList);
-            model.addAttribute("committeeList", committeeList);
             model.addAttribute("sdf", sdf);
-            modifiedAdvice = false;
-            modifiedCommittee = false;
-            modifiedDepartment = false;
             return "adviceBody";
         } else {
             return "failed";
@@ -78,48 +74,12 @@ public class ManagerController {
      * @param model 提案信息
      * @return 提案管理页面
      */
-    @SuppressWarnings("unused")
     @RequestMapping("/showAdviceBody")
     public String showAdviceBody(Model model) {
-        if (modifiedAdvice) {
-            adviceList = adviceService.getAdviceList();
-            modifiedAdvice = false;
-        }
+        List<Advice> adviceList = adviceDao.queryAdviceList();
         model.addAttribute("adviceList", adviceList);
         model.addAttribute("sdf", sdf);
         return "adviceBody";
-    }
-
-    /**
-     * 展示用户管理页面
-     *
-     * @param model 用户信息
-     * @return 用户管理页面
-     */
-    @SuppressWarnings("unused")
-    @RequestMapping("/showCommitteeBody")
-    public String showCommitteeBody(Model model) {
-        if (modifiedCommittee) {
-            committeeList = committeeService.getCommitteeList();
-        }
-        model.addAttribute("committeeList", committeeList);
-        return "committeeBody";
-    }
-
-    /**
-     * 展示部门管理页面
-     *
-     * @param model 部门信息
-     * @return 部门管理页面
-     */
-    @SuppressWarnings("unused")
-    @RequestMapping("/showDepartmentBody")
-    public String showDepartmentBody(Model model) {
-        if (modifiedDepartment) {
-            departmentList = departmentService.getDepartmentList();
-        }
-        model.addAttribute("departmentList", departmentList);
-        return "departmentBody";
     }
 
     /**
@@ -130,18 +90,13 @@ public class ManagerController {
      * @param model 包括提案信息,用户名,提案内容
      * @return 转发到adviceContent.jsp
      */
-    @SuppressWarnings("unused")
-    @GetMapping("/{adviceId}/content")
+    @GetMapping("/{adviceId}/adviceContent")
     public String adviceContent(@PathVariable("adviceId") Integer id, Model model) {
-        Advice advice = adviceService.getById(id);
+        Advice advice = adviceDao.queryAdviceById(id);
+        if (advice == null) return "nullAdvice";
         String committeeId = advice.getUserId();
-        Committee committee = committeeService.getCommitteeById(committeeId);
-        String content = advice.getAdviceContent();
-        String[] contents = {""};
-        if (content != null && !"".equals(content)) {
-            contents = content.split("\n");
-        }
-        List contentList = Arrays.asList(contents);
+        Committee committee = committeeDao.queryCommitteeById(committeeId);
+        List contentList = handlerContent(advice.getAdviceContent());
         String committeeName;
         try {
             committeeName = committee.getCommitteeName();
@@ -163,76 +118,207 @@ public class ManagerController {
     @SuppressWarnings("unused")
     @GetMapping("/{adviceId}/deleteAdvice")
     public void deleteAdvice(@PathVariable("adviceId") Integer id) {
-        adviceService.deleteById(id);
-        modifiedAdvice = true;
+        adviceDao.deleteAdviceById(id);
     }
 
     /**
-     * 删除指定id号的用户
-     *
-     * @param committeeId 用户id号
+     * 展示通知管理界面
+     * @param model 通知信息
+     * @return  转入eventBody.jsp
      */
-    @SuppressWarnings("unused")
-    @GetMapping("/{committeeId}/deleteCommittee")
-    public void deleteCommittee(@PathVariable("committeeId") String committeeId) {
-        committeeService.deleteCommitteeById(committeeId);
-        modifiedCommittee = true;
+    @RequestMapping("/showEventBody")
+    public String showEventBody(Model model) {
+        List<Event> eventList = eventDao.queryEventList();
+        model.addAttribute("eventList", eventList);
+        model.addAttribute("sdf", sdf);
+        return "eventBody";
     }
 
     /**
-     * 更新用户信息
-     *
-     * @param committeeId   用户id号
-     * @param committeePass 用户密码
-     * @param committeeName 用户姓名
+     * 删除通知
+     * @param id    通知id号
      */
-    @SuppressWarnings("unused")
-    @PostMapping("/{committeeId}/alterCommittee")
-    public void alterCommittee(@PathVariable("committeeId") String committeeId,
-                               @RequestParam(value = "committeePass", defaultValue = "123456") String committeePass,
-                               @RequestParam(value = "committeeName", defaultValue = "") String committeeName) {
-        committeeService.updateCommittee(committeeId, committeePass, committeeName);
-        modifiedCommittee = true;
+    @GetMapping("/{eventId}/deleteEvent")
+    public void deleteEvent(@PathVariable("eventId") Integer id) {
+        eventDao.deleteEvent(id);
     }
 
     /**
-     * 添加用户
-     *
-     * @param committeeId 用户id号
+     * 新增通知
+     * @param title     通知标题
+     * @param content   通知内容
      */
-    @SuppressWarnings("unused")
-    @GetMapping("/{committeeId}/addCommittee")
-    public void addCommittee(@PathVariable("committeeId") String committeeId) {
-        committeeService.addCommittee(committeeId);
-        modifiedCommittee = true;
+    @PostMapping("/addEvent")
+    public void addEvent(@RequestParam("title") String title,
+                         @RequestParam("content") String content) {
+        eventDao.insertEvent(title,content);
     }
 
     /**
-     * 添加一个新部门
-     *
-     * @param departmentId       部门id
-     * @param departmentPassword 部门密码
-     * @param departmentName     部门名
+     * 通知内容页面
+     * @param id    通知id号
+     * @param model 通知内容信息
+     * @return  eventContent.jsp
      */
-    @SuppressWarnings("unused")
-    @PostMapping("/{departmentId}/addDepartment")
-    public void addDepartment(@PathVariable("departmentId") String departmentId,
-                              @RequestParam(value = "departmentPassword", defaultValue = "123456") String departmentPassword,
-                              @RequestParam("departmentName") String departmentName) {
-        departmentService.addDepartment(departmentId, departmentPassword, departmentName);
-        modifiedDepartment = true;
+    @GetMapping("/{eventId}/eventContent")
+    public String eventContent(@PathVariable("eventId") Integer id, Model model) {
+        Event event = eventDao.queryEventById(id);
+        List contentList = handlerContent(event.getEventContent());
+        model.addAttribute("event", event);
+        model.addAttribute("contentList", contentList);
+        model.addAttribute("sdf", sdf);
+        return "eventContent";
     }
 
     /**
-     * 删除指定id号的部门
-     *
-     * @param departmentId 部门id号
+     * 展示会议管理界面
+     * @param model 保存会议信息
+     * @return  转入meetingBody.jsp
      */
-    @SuppressWarnings("unused")
-    @GetMapping("/{departmentId}/deleteDepartment")
-    public void deleteDepartment(@PathVariable("departmentId") String departmentId) {
-        departmentService.removeDepartmentById(departmentId);
-        modifiedDepartment = true;
+    @RequestMapping("/showMeetingBody")
+    public String showMeetingBody(Model model) {
+        List<Meeting> meetingList = meetingDao.queryMeetingList();
+        model.addAttribute("meetingList", meetingList);
+        model.addAttribute("sdf", sdf);
+        return "meetingBody";
     }
 
+    /**
+     * 新增会议信息
+     * @param title     会议标题
+     * @param content   会议内容
+     */
+    @PostMapping("/addMeeting")
+    public void addMeeting(@RequestParam("title") String title,
+                           @RequestParam("content") String content) {
+        meetingDao.insertMeeting(title, content);
+    }
+
+    /**
+     * 删除会议信息
+     * @param id 会议id号
+     */
+    @GetMapping("/{meetingId}/deleteMeeting")
+    public void deleteMeeting(@PathVariable("meetingId") Integer id) {
+        meetingDao.deleteMeeting(id);
+    }
+
+    /**
+     * 进入会议内容界面
+     * @param id    会议id号
+     * @param model 会议内容信息
+     * @return      进入meetingContent.jsp
+     */
+    @RequestMapping("/{meetingId}/meetingContent")
+    public String meetingContent(@PathVariable("meetingId") Integer id, Model model) {
+        Meeting meeting = meetingDao.queryMeetingById(id);
+        List contentList = handlerContent(meeting.getMeetingContent());
+        model.addAttribute("meeting", meeting);
+        model.addAttribute("contentList", contentList);
+        model.addAttribute("sdf", sdf);
+        return "meetingContent";
+    }
+
+    /**
+     * 展示新闻管理界面
+     * @param model 新闻信息
+     * @return      进入showNewsBody.jsp
+     */
+    @RequestMapping("/showNewsBody")
+    public String showNewsBody(Model model) {
+        List<News> newsList = newsDao.queryNewsList();
+        model.addAttribute("newsList", newsList);
+        model.addAttribute("sdf", sdf);
+        return "newsBody";
+    }
+
+    /**
+     * 删除新闻
+     * @param id    新闻id号
+     */
+    @GetMapping("/{newsId}/deleteNews")
+    public void deleteNews(@PathVariable("newsId") Integer id) {
+        newsDao.deleteNews(id);
+    }
+
+    /**
+     * 新增新闻
+     * @param title     新闻标题
+     * @param content   新闻内容
+     */
+    @PostMapping("/addNews")
+    public void addNews(@RequestParam("title") String title,
+                        @RequestParam("content") String content) {
+        newsDao.insertNews(title, content);
+    }
+
+    /**
+     * 进入新闻内容界面
+     * @param id    新闻id号
+     * @param model 新闻内容信息
+     * @return      转入newsContent.jsp
+     */
+    @RequestMapping("/{newsId}/newsContent")
+    public String newsContent(@PathVariable("newsId") Integer id, Model model) {
+        News news = newsDao.queryNewsById(id);
+        List contentList = handlerContent(news.getNewsContent());
+        model.addAttribute("news", news);
+        model.addAttribute("contentList", contentList);
+        model.addAttribute("sdf", sdf);
+        return "newsContent";
+    }
+
+    /**
+     * 展示回复管理界面
+     * @param model 回复信息
+     * @return      转入replyBody.jsp
+     */
+    @RequestMapping("/showReplyBody")
+    public String showReplyBody(Model model) {
+        List<Reply> replyList = replyDao.queryReplyList();
+        model.addAttribute("replyList", replyList);
+        model.addAttribute("sdf", sdf);
+        return "replyBody";
+    }
+
+    /**
+     * 回复内容界面
+     * @param id    回复id
+     * @param model 回复信息
+     * @return      转入replyContent.jsp
+     */
+    @RequestMapping("/{replyId}/replyContent")
+    public String replyContent(@PathVariable("replyId") Integer id, Model model) {
+        Reply reply = replyDao.queryReplyById(id);
+        Advice advice = adviceDao.queryAdviceById(reply.getAdviceId());
+        List contentList = handlerContent(reply.getReplyContent());
+        model.addAttribute("reply", reply);
+        model.addAttribute("advice", advice);
+        model.addAttribute("contentList", contentList);
+        model.addAttribute("sdf", sdf);
+        return "replyContent";
+    }
+
+    /**
+     * 删除回复
+     * @param id    回复id号
+     */
+    @GetMapping("/{replyId}/deleteReply")
+    public void deleteReply(@PathVariable("replyId") Integer id) {
+        replyDao.deleteReply(id);
+    }
+
+    /**
+     * 对从数据库取出的内容信息做分行处理
+     * 转化成行列表形式
+     * @param content   内容
+     * @return          内容列表
+     */
+    private List handlerContent(String content) {
+        String[] contents = {""};
+        if (content != null && !("".equals(content))) {
+            contents = content.split("\n");
+        }
+        return Arrays.asList(contents);
+    }
 }

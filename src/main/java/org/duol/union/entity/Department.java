@@ -1,9 +1,5 @@
 package org.duol.union.entity;
 
-/**
- * @author deity
- *         17-4-16 下午1:17
- */
 public class Department {
     private String departmentId;
 
@@ -11,12 +7,22 @@ public class Department {
 
     private String departmentName;
 
+    public Department(String departmentId, String departmentPassword, String departmentName) {
+        this.departmentId = departmentId;
+        this.departmentPassword = departmentPassword;
+        this.departmentName = departmentName;
+    }
+
+    public Department() {
+        super();
+    }
+
     public String getDepartmentId() {
         return departmentId;
     }
 
     public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+        this.departmentId = departmentId == null ? null : departmentId.trim();
     }
 
     public String getDepartmentPassword() {
@@ -24,7 +30,7 @@ public class Department {
     }
 
     public void setDepartmentPassword(String departmentPassword) {
-        this.departmentPassword = departmentPassword;
+        this.departmentPassword = departmentPassword == null ? null : departmentPassword.trim();
     }
 
     public String getDepartmentName() {
@@ -32,6 +38,6 @@ public class Department {
     }
 
     public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+        this.departmentName = departmentName == null ? null : departmentName.trim();
     }
 }
