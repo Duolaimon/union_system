@@ -11,8 +11,6 @@
     <title>管理员账户</title>
     <meta http-equiv="content-Type" content="text/html;charset=utf-8">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/manager.css">
-    <%--<script type="application/javascript"
-            src="${pageContext.request.contextPath}/resources/js/manager.js"></script>--%>
     <script>
         var contextPath = "<%=request.getContextPath()%>";
         const admin = {
@@ -121,10 +119,6 @@
                 addUser: function (node, type) {
                     var xmlHttp = admin.ajaxFunc();
                     var committeeId = node.parentNode.cells[0].firstChild.value;
-                    if (committeeId.length !== 5) {
-                        alert("职工号位数为5位!");
-                        return;
-                    }
                     var url = admin.URL.addUserUrl(committeeId, type);
                     xmlHttp.open("GET", url, true);
                     xmlHttp.setRequestHeader("content-Type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -143,14 +137,6 @@
                  */
                 addDepartment: function (departmentId, departmentPassword, departmentName) {
                     var xmlHttp = admin.ajaxFunc();
-                    if (departmentId.length !== 5) {
-                        alert("部门号位数为5位!");
-                        return;
-                    }
-                    if (departmentName === "") {
-                        alert("部门名不能为空！");
-                        return;
-                    }
                     var url = admin.URL.addDepartmentUrl(departmentId);
                     xmlHttp.open("POST", url, true);
                     xmlHttp.setRequestHeader("content-Type", "application/x-www-form-urlencoded;charset=utf-8");
