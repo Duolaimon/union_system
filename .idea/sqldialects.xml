@@ -5,6 +5,6 @@
     <file url="PROJECT" dialect="MySQL" />
   </component>
   <component name="SqlResolveMappings">
-    <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;data-source&quot;,   &quot;node&quot;:{    &quot;@negative&quot;:&quot;1&quot;   }  } }}" />
+    <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;data-source&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@name&quot;:&quot;ada82f5c-7c93-4616-aa2b-0be8fc777c5d&quot;,     &quot;@quoted&quot;:&quot;1&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;schema&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@name&quot;:&quot;db_union&quot;,       &quot;@quoted&quot;:&quot;1&quot;      }     }    }   }  } }}" />
   </component>
 </project>

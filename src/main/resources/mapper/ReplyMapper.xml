@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duol.union.dao.ReplyDao">
+  <resultMap id="BaseResultMap" type="org.duol.union.entity.Reply">
+    <constructor>
+      <arg column="reply_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="reply_content" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="reply_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="reply_state" javaType="java.lang.Short" jdbcType="SMALLINT" />
+      <arg column="department_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="advice_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="org.duol.union.entity.Reply">
+    insert into tb_reply (reply_id, reply_content, reply_time,
+      reply_state, department_id, advice_id
+      )
+    values (#{replyId,jdbcType=INTEGER}, #{replyContent,jdbcType=VARCHAR}, #{replyTime,jdbcType=TIMESTAMP}, 
+      #{replyState,jdbcType=SMALLINT}, #{departmentId,jdbcType=VARCHAR}, #{adviceId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.duol.union.entity.Reply">
+    insert into tb_reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="replyId != null">
+        reply_id,
+      </if>
+      <if test="replyContent != null">
+        reply_content,
+      </if>
+      <if test="replyTime != null">
+        reply_time,
+      </if>
+      <if test="replyState != null">
+        reply_state,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="adviceId != null">
+        advice_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="replyId != null">
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="replyContent != null">
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null">
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyState != null">
+        #{replyState,jdbcType=SMALLINT},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceId != null">
+        #{adviceId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="queryReplyList" resultType="Reply">
+    SELECT * FROM tb_reply ORDER BY reply_time DESC ;
+  </select>
+
+  <select id="queryReplyById" resultType="Reply">
+    SELECT * FROM tb_reply WHERE reply_id=#{id};
+  </select>
+
+  <delete id="deleteReply">
+    DELETE FROM tb_reply WHERE reply_id=#{id};
+  </delete>
+</mapper>

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%@include file="head.jsp"%>
+    <%@include file="../head.jsp"%>
     <script>
         var type;
         window.onload=function () {
@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="admin-body">
-    <%@include file="navigation.jsp"%>
+    <%@include file="../navigation.jsp"%>
     <div id="advice-body">
         <table>
             <thead>
@@ -28,21 +28,19 @@
             <c:forEach var="meeting" items="${meetingList}">
 
                 <tr>
-                    <td><a href="/admin/${meeting.meetingId}/meetingContent">${meeting.meetingTitle}</a></td>
+                    <td><a href="<%=request.getContextPath()%>/admin/${meeting.meetingId}/meetingContent">${meeting.meetingTitle}</a></td>
                     <td>${sdf.format(meeting.meetingTime)}</td>
                     <td class="handler" onclick="admin.adminHandler.deleteAdvice(${meeting.meetingId},type)">删除</td>
                 </tr>
             </c:forEach>
             <tr>
-                <td colspan="3" class="handler" onclick="admin.adminHandler.addContext(type)">新建会议资料</td>
+                <td colspan="3" class="handler"><a href="http://118.89.243.99/db_union/ueditor/Demo2.html">新建会议资料</a></td>
             </tr>
             </tbody>
         </table>
     </div>
 
 </div>
-<script type="application/javascript"
-        src="${pageContext.request.contextPath}/resources/js/manager.js"></script>
 
 </body>
 </html>

@@ -10,7 +10,7 @@ div {
 
 td, th {
     text-align: center;
-    border: 1px solid #98bf21;
+    border: 1px solid #9235bf;
 }
 
 table {
@@ -31,7 +31,7 @@ th {
 #navigation {
     width: 100%;
     height: 43px;
-    background-color: #35cc1c;
+    background-color: #244dcc;
     margin: 0 auto;
 }
 
@@ -97,10 +97,8 @@ th {
     margin: 0 auto;
     word-wrap: break-word;
     line-height: 2;
-    padding-top: 20px;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 100px;
+    padding: 20px 50px;
     font-size: 20px;
     font-family: 微软雅黑, serif;
+    float: none;
 }

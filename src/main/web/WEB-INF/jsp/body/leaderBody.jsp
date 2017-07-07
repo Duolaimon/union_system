@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%@include file="head.jsp"%>
+    <%@include file="../head.jsp"%>
     <script>
         var type;
         window.onload=function () {
@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="admin-body">
-    <%@include file="navigation.jsp"%>
+    <%@include file="../navigation.jsp"%>
     <div id="committee-body">
         <table>
             <thead>
@@ -50,9 +50,6 @@
         </table>
     </div>
 </div>
-<script type="application/javascript"
-        src="${pageContext.request.contextPath}/resources/js/manager.js">
-</script>
 
 </body>
 </html>

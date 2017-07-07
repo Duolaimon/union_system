@@ -4,14 +4,17 @@
 <body>
     <div id="navigation">
     <ul class="horizontal">
-        <li><a href="<c:url value="//localhost:8080/admin/showAdviceBody"/>">提案管理</a></li>
-        <li><a href="<c:url value="//localhost:8080/user/showCommitteeBody"/>">成员管理</a></li>
-        <li><a href="<c:url value="//localhost:8080/user/showDepartmentBody"/>">部门管理</a></li>
-        <li><a href="<c:url value="//localhost:8080/user/showLeaderBody"/>">领导管理</a></li>
-        <li><a href="<c:url value="//localhost:8080/admin/showMeetingBody"/>">会议管理</a></li>
-        <li><a href="<c:url value="//localhost:8080/admin/showNewsBody"/>">新闻管理</a></li>
-        <li><a href="<c:url value="//localhost:8080/admin/showReplyBody"/>">回复管理</a></li>
-        <li><a href="<c:url value="//localhost:8080/admin/showEventBody"/>">通知管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/admin/showAdviceBody">提案管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/user/showCommitteeBody">成员管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/user/showLeaderBody">领导管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/user/showDepartmentBody">部门管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/admin/showReplyBody">回复管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/admin/showMeetingBody">会议管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/admin/showNewsBody">通知管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/admin/showEventBody">新闻管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/admin/showOrganizationBody">组织管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/admin/showQuestionBody">须知管理</a></li>
+        <li><a href="<%=request.getContextPath()%>/admin/showRuleBody">规则管理</a></li>
     </ul>
 </div>
 </body>

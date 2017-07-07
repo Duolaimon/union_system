@@ -1,23 +1,23 @@
-const admin = {
+const first = {
     /* 访问后台非标准rest url */
     URL: {
         deleteAdminUrl: function (Id, type) {
-            return "/admin/" + Id + "/delete" + type;
+            return contextPath + "/admin/" + Id + "/delete" + type;
         },
         deleteUserUrl: function (userId, type) {
-            return "/user/" + userId + "/delete" + type;
+            return contextPath + "/user/" + userId + "/delete" + type;
         },
         alterUserUrl: function (userId, type) {
-            return "/user/" + userId + "/alter" + type;
+            return contextPath + "/user/" + userId + "/alter" + type;
         },
         addUserUrl: function (userId, type) {
-            return "/user/" + userId + "/add" + type;
+            return contextPath + "/user/" + userId + "/add" + type;
         },
         addDepartmentUrl: function (departmentId) {
-            return "/user/" + departmentId + "/addDepartment";
+            return contextPath + "/user/" + departmentId + "/addDepartment";
         },
         addEvent: function (type) {
-            return "/admin/add"+type;
+            return contextPath + "/admin/add" + type;
         }
     },
     /*对内容展示相关的处理*/
@@ -27,11 +27,11 @@ const admin = {
          * @param adviceId
          * @param type
          */
-        deleteAdvice: function (adviceId,type) {
+        deleteAdvice: function (adviceId, type) {
             var con = confirm("确定删除?");
             if (con) {
                 var xmlHttp = admin.ajaxFunc();
-                var url = admin.URL.deleteAdminUrl(adviceId,type);
+                var url = admin.URL.deleteAdminUrl(adviceId, type);
                 xmlHttp.open("GET", url, true);
                 xmlHttp.send();
                 admin.sleep(300);
@@ -44,9 +44,9 @@ const admin = {
          */
         addContext: function (type) {
             var title = prompt("请输入标题");
-            if (title!==null&&title!==""){
+            if (title !== null && title !== "") {
                 var content = prompt("请输入内容");
-                if (content!==null&&content!==""){
+                if (content !== null && content !== "") {
                     var xmlHttp = admin.ajaxFunc();
                     var url = admin.URL.addEvent(type);
                     xmlHttp.open("POST", url, true);
@@ -104,10 +104,6 @@ const admin = {
         addUser: function (node, type) {
             var xmlHttp = admin.ajaxFunc();
             var committeeId = node.parentNode.cells[0].firstChild.value;
-            if (committeeId.length !== 5) {
-                alert("职工号位数为5位!");
-                return;
-            }
             var url = admin.URL.addUserUrl(committeeId, type);
             xmlHttp.open("GET", url, true);
             xmlHttp.setRequestHeader("content-Type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -126,10 +122,6 @@ const admin = {
          */
         addDepartment: function (departmentId, departmentPassword, departmentName) {
             var xmlHttp = admin.ajaxFunc();
-            if (departmentId.length !== 5) {
-                alert("部门号位数为5位!");
-                return;
-            }
             if (departmentName === "") {
                 alert("部门名不能为空！");
                 return;

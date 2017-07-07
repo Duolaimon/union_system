@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duol.union.dao.EventDao">
+    <resultMap id="BaseResultMap" type="org.duol.union.entity.Event">
+        <constructor>
+            <arg column="event_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="event_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="event_content" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="event_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="org.duol.union.entity.Event">
+        INSERT INTO tb_event (event_id, event_title, event_content,
+                              event_time)
+        VALUES (#{eventId,jdbcType=INTEGER}, #{eventTitle,jdbcType=VARCHAR}, #{eventContent,jdbcType=VARCHAR},
+                #{eventTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="org.duol.union.entity.Event">
+        insert into tb_event
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="eventId != null">
+                event_id,
+            </if>
+            <if test="eventTitle != null">
+                event_title,
+            </if>
+            <if test="eventContent != null">
+                event_content,
+            </if>
+            <if test="eventTime != null">
+                event_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="eventId != null">
+                #{eventId,jdbcType=INTEGER},
+            </if>
+            <if test="eventTitle != null">
+                #{eventTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="eventContent != null">
+                #{eventContent,jdbcType=VARCHAR},
+            </if>
+            <if test="eventTime != null">
+                #{eventTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="queryEventList" resultType="Event">
+        SELECT *
+        FROM tb_event
+        ORDER BY event_time DESC ;
+    </select>
+
+    <delete id="deleteEvent">
+        DELETE FROM tb_event
+        WHERE event_id = #{eventId};
+    </delete>
+
+    <insert id="insertEvent">
+        INSERT tb_event (event_title, event_content,event_time) VALUES (#{title},#{content},current_timestamp() );
+    </insert>
+
+    <select id="queryEventById" resultType="Event">
+        SELECT *
+        FROM tb_event
+        WHERE event_id = #{eventId};
+    </select>
+</mapper>

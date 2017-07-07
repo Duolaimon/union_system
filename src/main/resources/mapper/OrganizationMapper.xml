@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duol.union.dao.OrganizationDao">
+    <resultMap id="BaseResultMap" type="org.duol.union.entity.Organization">
+        <constructor>
+            <arg column="organization_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="eorganization_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="organization_content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="organization_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="org.duol.union.entity.Organization">
+        INSERT INTO tb_organization (eorganization_name,
+                                     organization_content, organization_time
+        )
+        VALUES (#{eorganizationName,jdbcType=VARCHAR},
+                #{organizationContent,jdbcType=VARCHAR}, current_timestamp())
+    </insert>
+    <insert id="insertSelective" parameterType="org.duol.union.entity.Organization">
+        insert into tb_organization
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="organizationId != null">
+                organization_id,
+            </if>
+            <if test="organizationName != null">
+                eorganization_name,
+            </if>
+            <if test="organizationContent != null">
+                organization_content,
+            </if>
+            <if test="organizationTime != null">
+                organization_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="organizationId != null">
+                #{organizationId,jdbcType=INTEGER},
+            </if>
+            <if test="eorganizationName != null">
+                #{eorganizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationContent != null">
+                #{organizationContent,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationTime != null">
+                #{organizationTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="queryList" resultType="Organization">
+        SELECT *
+        FROM tb_organization
+        ORDER BY organization_time DESC;
+    </select>
+
+    <select id="queryById" resultType="Organization">
+        SELECT *
+        FROM tb_organization
+        WHERE organization_id = #{id};
+    </select>
+
+    <delete id="delete">
+        DELETE FROM tb_organization
+        WHERE organization_id = #{id};
+    </delete>
+</mapper>

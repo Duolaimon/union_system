@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duol.union.dao.NewsDao">
+    <resultMap id="BaseResultMap" type="org.duol.union.entity.News">
+        <constructor>
+            <arg column="news_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="news_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="news_content" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="news_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="org.duol.union.entity.News">
+        INSERT INTO tb_news (news_id, news_title, news_content,
+                                      news_time)
+        VALUES (#{newsId,jdbcType=INTEGER}, #{newsTitle,jdbcType=VARCHAR}, #{newsContent,jdbcType=VARCHAR},
+                #{newsTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="org.duol.union.entity.News">
+        insert into tb_news
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="newsId != null">
+                news_id,
+            </if>
+            <if test="newsTitle != null">
+                news_title,
+            </if>
+            <if test="newsContent != null">
+                news_content,
+            </if>
+            <if test="newsTime != null">
+                news_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="newsId != null">
+                #{newsId,jdbcType=INTEGER},
+            </if>
+            <if test="newsTitle != null">
+                #{newsTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="newsContent != null">
+                #{newsContent,jdbcType=VARCHAR},
+            </if>
+            <if test="newsTime != null">
+                #{newsTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="queryNewsList" resultType="News">
+        SELECT *
+        FROM tb_news
+        ORDER BY news_time DESC;
+    </select>
+
+    <select id="queryNewsById" resultType="News">
+        SELECT *
+        FROM tb_news
+        WHERE news_id = #{id};
+    </select>
+
+    <insert id="insertNews">
+        INSERT INTO tb_news (news_title, news_content,news_time) VALUES (#{title}, #{content},current_timestamp);
+    </insert>
+
+    <delete id="deleteNews">
+        DELETE FROM tb_news
+        WHERE news_id = #{id};
+    </delete>
+</mapper>

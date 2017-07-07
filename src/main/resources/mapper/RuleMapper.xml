@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duol.union.dao.RuleDao">
+    <resultMap id="BaseResultMap" type="org.duol.union.entity.Rule">
+        <constructor>
+            <arg column="rule_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <arg column="rule_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="rule_content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="rule_time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="org.duol.union.entity.Rule">
+        INSERT INTO tb_rule (rule_name, rule_content,
+                             rule_time)
+        VALUES (#{ruleName,jdbcType=VARCHAR}, #{ruleContent,jdbcType=VARCHAR},
+                current_timestamp)
+    </insert>
+    <insert id="insertSelective" parameterType="org.duol.union.entity.Rule">
+        insert into tb_rule
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ruleId != null">
+                rule_id,
+            </if>
+            <if test="ruleName != null">
+                rule_name,
+            </if>
+            <if test="ruleContent != null">
+                rule_content,
+            </if>
+            <if test="ruleTime != null">
+                rule_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ruleId != null">
+                #{ruleId,jdbcType=INTEGER},
+            </if>
+            <if test="ruleName != null">
+                #{ruleName,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleContent != null">
+                #{ruleContent,jdbcType=VARCHAR},
+            </if>
+            <if test="ruleTime != null">
+                #{ruleTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM tb_rule
+        WHERE rule_id = #{id}
+    </delete>
+
+    <select id="queryList" resultType="Rule">
+        SELECT *
+        FROM tb_rule
+        ORDER BY rule_time DESC
+    </select>
+
+    <select id="queryById" resultType="Rule">
+        SELECT *
+        FROM tb_rule
+        WHERE rule_id = #{id};
+    </select>
+</mapper>

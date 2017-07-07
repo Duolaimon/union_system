@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <%@include file="head.jsp"%>
+    <%@include file="../head.jsp"%>
     <script>
         var type;
         window.onload=function () {
@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="admin-body">
-    <%@include file="navigation.jsp"%>
+    <%@include file="../navigation.jsp"%>
     <div id="advice-body">
         <table>
             <thead>
@@ -31,8 +31,8 @@
             <c:forEach var="reply" items="${replyList}">
 
                 <tr>
-                    <td><a href="/admin/${reply.replyId}/replyContent">${reply.replyId}</a></td>
-                    <td><a href="/admin/${reply.adviceId}/adviceContent">${reply.adviceId}</a></td>
+                    <td><a href="<%=request.getContextPath()%>/admin/${reply.replyId}/replyContent">${reply.replyId}</a></td>
+                    <td><a href="<%=request.getContextPath()%>/admin/${reply.adviceId}/adviceContent">${reply.adviceId}</a></td>
                     <td>${reply.departmentId}</td>
                     <td>
                         <%--<c:choose>
@@ -52,8 +52,6 @@
     </div>
 
 </div>
-<script type="application/javascript"
-        src="${pageContext.request.contextPath}/resources/js/manager.js"></script>
 
 </body>
 </html>

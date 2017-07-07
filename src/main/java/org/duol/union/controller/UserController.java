@@ -49,7 +49,7 @@ public class UserController {
         List<Leader> leaderList = leaderDao.queryLeaderList();
         model.addAttribute("leaderList", leaderList);
         model.addAttribute("sdf", sdf);
-        return "leaderBody";
+        return "body/leaderBody";
     }
 
     /**
@@ -62,7 +62,7 @@ public class UserController {
     public String showCommitteeBody(Model model) {
         List<Committee> committeeList = committeeDao.queryCommitteeList();
         model.addAttribute("committeeList", committeeList);
-        return "committeeBody";
+        return "body/committeeBody";
     }
 
     /**
@@ -76,7 +76,7 @@ public class UserController {
     public String showDepartmentBody(Model model) {
         List<Department> departmentList = departmentDao.queryDepartmentList();
         model.addAttribute("departmentList", departmentList);
-        return "departmentBody";
+        return "body/departmentBody";
     }
 
     /**

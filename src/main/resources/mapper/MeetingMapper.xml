@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duol.union.dao.MeetingDao">
+    <resultMap id="BaseResultMap" type="org.duol.union.entity.Meeting">
+        <constructor>
+            <arg column="meeting_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+            <arg column="meeting_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="meeting_content" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="meeting_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        </constructor>
+    </resultMap>
+    <insert id="insert" parameterType="org.duol.union.entity.Meeting">
+        INSERT INTO tb_meeting (meeting_id, meeting_title, meeting_content,
+                                meeting_time)
+        VALUES (#{meetingId,jdbcType=INTEGER}, #{meetingTitle,jdbcType=VARCHAR}, #{meetingContent,jdbcType=VARCHAR},
+                #{meetingTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="org.duol.union.entity.Meeting">
+        insert into tb_meeting
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="meetingId != null">
+                meeting_id,
+            </if>
+            <if test="meetingTitle != null">
+                meeting_title,
+            </if>
+            <if test="meetingContent != null">
+                meeting_content,
+            </if>
+            <if test="meetingTime != null">
+                meeting_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="meetingId != null">
+                #{meetingId,jdbcType=INTEGER},
+            </if>
+            <if test="meetingTitle != null">
+                #{meetingTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="meetingContent != null">
+                #{meetingContent,jdbcType=VARCHAR},
+            </if>
+            <if test="meetingTime != null">
+                #{meetingTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="queryMeetingList" resultType="Meeting">
+        SELECT *
+        FROM tb_meeting
+        ORDER BY meeting_time DESC ;
+    </select>
+
+    <delete id="deleteMeeting">
+        DELETE FROM tb_meeting
+        WHERE meeting_id = #{id};
+    </delete>
+
+    <select id="queryMeetingById" resultType="Meeting">
+        SELECT *
+        FROM tb_meeting
+        WHERE meeting_id = #{id};
+    </select>
+
+    <insert id="insertMeeting">
+        INSERT tb_meeting (meeting_title, meeting_content,meeting_time) VALUES (#{title}, #{content},current_timestamp);
+    </insert>
+</mapper>
