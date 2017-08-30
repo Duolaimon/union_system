@@ -34,7 +34,7 @@
                 </tr>
             </c:forEach>
             <tr>
-                <td colspan="3" class="handler"><a href="http://118.89.243.99/db_union/ueditor/Demo1.html">新建通知公告</a></td>
+                <td colspan="3" class="handler"><a href="http://<%=ip%>/db_union/ueditor/Demo1.html">新建通知公告</a></td>
             </tr>
             </tbody>
         </table>

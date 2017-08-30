@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String ip = "118.89.216.40";
+%>
 <html>
 <head>
     <title>管理员账户</title>
