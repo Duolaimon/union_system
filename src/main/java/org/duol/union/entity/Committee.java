@@ -7,6 +7,8 @@ public class Committee {
 
     private String committeeName;
 
+    private Integer teamId;
+
     public Committee(String committeeId, String committeePass, String committeeName) {
         this.committeeId = committeeId;
         this.committeePass = committeePass;
@@ -39,5 +41,13 @@ public class Committee {
 
     public void setCommitteeName(String committeeName) {
         this.committeeName = committeeName == null ? null : committeeName.trim();
+    }
+
+    public Integer getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
     }
 }

@@ -2,6 +2,11 @@
   <artifact type="war" name="union_system">
     <output-path>$PROJECT_DIR$/target/artifacts/union_system</output-path>
     <root id="archive" name="union_system.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="dir-copy" path="$PROJECT_DIR$/src/main/web" />
+        </element>
+      </element>
       <element id="artifact" artifact-name="union_system:war exploded" />
     </root>
   </artifact>

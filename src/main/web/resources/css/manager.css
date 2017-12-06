@@ -1,6 +1,8 @@
 body {
     font-family: 微软雅黑, serif;
     font-size: 13px;
+    margin: 0;
+    padding: 0;
 }
 
 div {
@@ -34,18 +36,21 @@ th {
     background-color: #244dcc;
     margin: 0 auto;
 }
-
+#navigation-width{
+    width:100%;
+}
 .horizontal {
     line-height: 14px;
     text-align: center;
 }
 
 .horizontal li {
-    font-size: 15px;
-    float: left;
+    font-size: 9px;
+    /*float: left;*/
+    display: inline-block;
     text-align: center;
     padding: 4px;
-    margin-left: 50px;
+    margin-left: 0.7%;
     list-style: none;
 }
 

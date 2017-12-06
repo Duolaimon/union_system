@@ -100,8 +100,9 @@
                  * @param userPass
                  * @param userName
                  * @param type  成员类型
+                 * @param teamId
                  */
-                alterUser: function (userId, userPass, userName, type) {
+                alterUser: function (userId, userPass, userName, type, teamId) {
                     var con = confirm("确定保存?");
                     if (con) {
                         var xmlHttp = admin.ajaxFunc();
@@ -110,6 +111,9 @@
                         var lowerType = type.toLowerCase();
                         xmlHttp.setRequestHeader("content-Type", "application/x-www-form-urlencoded;charset=utf-8");
                         var data = lowerType + "Pass=" + userPass + "&" + lowerType + "Name=" + userName;
+                        if (teamId !== '') {
+                            data = data + "&teamId=" + teamId;
+                        }
                         xmlHttp.send(data);
                         // location.reload();
                     }
@@ -121,11 +125,19 @@
                  */
                 addUser: function (node, type) {
                     var xmlHttp = admin.ajaxFunc();
-                    var committeeId = node.parentNode.cells[0].firstChild.value;
-                    var url = admin.URL.addUserUrl(committeeId, type);
-                    xmlHttp.open("GET", url, true);
+                    var userId = node.parentNode.cells[0].firstChild.value;
+                    var userPass = node.parentNode.cells[1].firstChild.value;
+                    var userName = node.parentNode.cells[2].firstChild.value;
+                    var teamId = node.parentNode.cells[3].firstChild.value;
+                    var url = admin.URL.addUserUrl(userId, type);
+                    xmlHttp.open("POST", url, true);
                     xmlHttp.setRequestHeader("content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-                    xmlHttp.send();
+                    var lowerType = type.toLowerCase();
+                    var data = lowerType + "Pass=" + userPass + "&" + lowerType + "Name=" + userName;
+                    if (teamId !== '') {
+                        data = data + "&teamId=" + teamId;
+                    }
+                    xmlHttp.send(data);
                     admin.sleep(300);
                     location.reload();
                 }

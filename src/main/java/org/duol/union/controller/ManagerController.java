@@ -387,7 +387,7 @@ public class ManagerController {
 
     @GetMapping("/{questionId}/deleteQuestion")
     public void deleteQuestion(@PathVariable("questionId") Integer id) {
-        organizationDao.delete(id);
+        questionDao.delete(id);
     }
 
     @RequestMapping("/showRuleBody")
@@ -416,7 +416,7 @@ public class ManagerController {
 
     @GetMapping("/{ruleId}/deleteRule")
     public void deleteRule(@PathVariable("ruleId") Integer id) {
-        organizationDao.delete(id);
+        ruleDao.delete(id);
     }
 
 

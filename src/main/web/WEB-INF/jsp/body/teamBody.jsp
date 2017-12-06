@@ -6,7 +6,7 @@
     <script>
         var type;
         window.onload=function () {
-            type = 'Committee';
+            type = 'Team';
         }
     </script>
 </head>
@@ -17,28 +17,25 @@
         <table>
             <thead>
             <tr>
-                <th>职工号</th>
-                <th>职工密码</th>
-                <th>职工姓名</th>
                 <th>队伍号</th>
+                <th>队伍密码</th>
+                <th>队伍名</th>
                 <th colspan="2">处理</th>
             </tr>
             </thead>
             <tbody>
-            <jsp:useBean id="committeeList" scope="request" type="java.util.List"/>
-            <c:forEach var="committee" items="${committeeList}">
+            <jsp:useBean id="teamList" scope="request" type="java.util.List"/>
+            <c:forEach var="team" items="${teamList}">
                 <tr>
-                    <td>${committee.committeeId}</td>
-                    <td><input name="userPass" class="committee-test" type="text" title="userPass" value="${committee.committeePass}"/>
+                    <td>${team.teamId}</td>
+                    <td><input name="userPass" class="committee-test" type="text" title="userPass" value="${team.teamPass}"/>
                     </td>
-                    <td><input name="userName" class="committee-test" type="text" title="userName" value="${committee.committeeName}"/>
+                    <td><input name="userName" class="committee-test" type="text" title="userName" value="${team.teamName}"/>
                     </td>
-                    <td><input name="teamId" class="committee-test" type="text" title="teamId" value="${committee.teamId}"/>
-                    </td>
-                    <td class="handler" onclick="admin.userHandler.deleteUser('${committee.committeeId}',type)">删除</td>
-                    <td class="handler" onclick="admin.userHandler.alterUser('${committee.committeeId}',
+                    <td class="handler" onclick="admin.userHandler.deleteUser('${team.teamId}',type)">删除</td>
+                    <td class="handler" onclick="admin.userHandler.alterUser('${team.teamId}',
                             this.parentNode.cells[1].firstChild.value,
-                            this.parentNode.cells[2].firstChild.value,type,this.parentNode.cells[3].firstChild.value)">
+                            this.parentNode.cells[2].firstChild.value,type)">
                         修改
                     </td>
                 </tr>
@@ -47,7 +44,6 @@
                 <td><input class="committee-test" type="text" title="committeeId"/></td>
                 <td><input class="committee-test" type="text" title="committeePass"/></td>
                 <td><input class="committee-test" type="text" title="committeeName"/></td>
-                <td><input class="committee-test" type="text" title="teamId"/></td>
                 <td colspan="2" class="handler" onclick="admin.userHandler.addUser(this,type)">添加成员</td>
             </tr>
             </tbody>

@@ -24,7 +24,7 @@
                 driverClass="com.mysql.jdbc.Driver"
                 connectionURL="jdbc:mysql://127.0.0.1:3306/db_union?useUnicode=true&amp;characterEncoding=utf8"
                 userId="root"
-                password="0">
+                password="123456">
         </jdbcConnection>
 
 
@@ -110,7 +110,7 @@
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>-->
-        <table tableName="tb_organization" domainObjectName="Organization"
+        <!--<table tableName="tb_organization" domainObjectName="Organization"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
@@ -121,6 +121,11 @@
                selectByExampleQueryId="false">
         </table>
         <table tableName="tb_rule" domainObjectName="Rule"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>-->
+        <table tableName="tb_team" domainObjectName="Team"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

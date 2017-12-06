@@ -14,9 +14,9 @@ public interface LeaderDao {
 
     Leader queryLeaderById(@Param("leaderId") int leaderId);
 
-    void insertLeader(@Param("leaderId") int leaderId);
+    void insertLeader(@Param("leaderId") int leaderId, @Param("leaderPass") String leaderPassword, @Param("leaderName") String leaderName);
 
     void deleteLeader(@Param("leaderId") int leaderId);
 
-    void updateLeader(@Param("leaderId") int leaderId, @Param("leaderPassword") String leaderPassword, @Param("leaderName") String leaderName);
+    void updateLeader(@Param("leaderId") int leaderId, @Param("leaderPass") String leaderPassword, @Param("leaderName") String leaderName);
 }

@@ -42,7 +42,7 @@
       line-height: 40px;
     }
     .form label input{
-      width: 184px;
+      width: 174px;
       height: 24px;
       line-height: 24px;
       padding: 0 4px;
@@ -67,7 +67,8 @@
 </head>
 <body>
 <img src="img/2014113017583752.jpg">
-<form method="post" action="<%=request.getContextPath()%>/admin/index" class="form">
+<form method="post" <%--action="<%=request.getContextPath()%>admin/index" --%>class="form"
+    action="<%=request.getContextPath()%>/login/auth">
     <label>username:
     <input type="text" id="adminName" name="username">
 </label><br/>
@@ -76,5 +77,7 @@
 </label>
     <input type="submit" value="submit" name="Submit" id="subBtn" >
 </form>
+<hr/>
+<%=request.getContextPath()%>
 </body>
 </html>

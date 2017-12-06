@@ -41,9 +41,9 @@
                 </tr>
             </c:forEach>
             <tr>
-                <td><input name="committeeId" class="committee-test" type="text" title="committeeId"/></td>
-                <td></td>
-                <td></td>
+                <td><input class="committee-test" type="text" title="committeeId"/></td>
+                <td><input class="committee-test" type="text" title="committeePass"/></td>
+                <td><input class="committee-test" type="text" title="committeeName"/></td>
                 <td colspan="2" class="handler" onclick="admin.userHandler.addUser(this,type)">添加成员</td>
             </tr>
             </tbody>

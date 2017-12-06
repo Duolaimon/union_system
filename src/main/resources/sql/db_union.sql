@@ -2,8 +2,7 @@
 SQLyog v10.2 
 MySQL - 5.5.19 : Database - db_union
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -37,11 +36,11 @@ CREATE TABLE `tb_advice` (
   `user_id` varchar(20) DEFAULT NULL COMMENT '提案人id',
   `department_id` varchar(20) DEFAULT NULL COMMENT '被提案部门id',
   PRIMARY KEY (`advice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_advice` */
 
-insert  into `tb_advice`(`advice_id`,`advice_num`,`title`,`advice_content`,`advice_do`,`advice_state`,`count`,`advice_agree`,`advice_name`,`advice_workspace`,`advice_time`,`contactway`,`user_id`,`department_id`) values (1,'123','测试','测试','测试',3,4,'测试','测试','测试','2017-07-04 19:55:33','11','54321','4');
+insert  into `tb_advice`(`advice_id`,`advice_num`,`title`,`advice_content`,`advice_do`,`advice_state`,`count`,`advice_agree`,`advice_name`,`advice_workspace`,`advice_time`,`contactway`,`user_id`,`department_id`) values (1,'123456','测试','测试','测试',6,4,'测试','测试','测试','2017-10-06 02:11:39','11','54321','6'),(2,'21','测试','测试','测试',4,0,NULL,NULL,NULL,'2017-10-06 02:11:45',NULL,NULL,'2');
 
 /*Table structure for table `tb_committee` */
 
@@ -51,12 +50,13 @@ CREATE TABLE `tb_committee` (
   `committee_id` varchar(5) NOT NULL,
   `committee_pass` varchar(10) DEFAULT NULL,
   `committee_name` varchar(10) DEFAULT NULL,
+  `team_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`committee_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `tb_committee` */
 
-insert  into `tb_committee`(`committee_id`,`committee_pass`,`committee_name`) values ('20145','20145425','测试'),('54321','20145408','测试');
+insert  into `tb_committee`(`committee_id`,`committee_pass`,`committee_name`,`team_id`) values ('20145','20145425','测试',1),('54321','20145408','测试',1);
 
 /*Table structure for table `tb_department` */
 
@@ -160,7 +160,7 @@ CREATE TABLE `tb_organization` (
 
 /*Data for the table `tb_organization` */
 
-insert  into `tb_organization`(`organization_id`,eorganization_name,`organization_content`,`organization_time`) values (1,'组织机构','组织机构内容','2017-07-05 18:14:53');
+insert  into `tb_organization`(`organization_id`,`eorganization_name`,`organization_content`,`organization_time`) values (1,'组织机构','组织机构内容','2017-07-05 18:14:53');
 
 /*Table structure for table `tb_question` */
 
@@ -209,6 +209,21 @@ CREATE TABLE `tb_rule` (
 /*Data for the table `tb_rule` */
 
 insert  into `tb_rule`(`rule_id`,`rule_name`,`rule_content`,`rule_time`) values (1,'规则','规则内容','2017-07-05 21:14:30');
+
+/*Table structure for table `tb_team` */
+
+DROP TABLE IF EXISTS `tb_team`;
+
+CREATE TABLE `tb_team` (
+  `team_id` int(10) NOT NULL AUTO_INCREMENT,
+  `team_pass` varchar(10) DEFAULT NULL,
+  `team_name` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`team_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `tb_team` */
+
+insert  into `tb_team`(`team_id`,`team_pass`,`team_name`) values (1,'20145425','第一队');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -41,8 +41,8 @@
     </insert>
 
     <insert id="insertLeader">
-        INSERT INTO tb_leader (leader_id,leader_password)
-        VALUES (#{leaderId},'123456');
+        INSERT INTO tb_leader (leader_id,leader_password,leader_name)
+        VALUES (#{leaderId},#{leaderPass},#{leaderName});
     </insert>
 
     <select id="queryLeaderList" resultType="Leader">
@@ -63,7 +63,7 @@
 
     <update id="updateLeader">
         UPDATE tb_leader
-        SET leader_password = #{leaderPassword}, leader_name = #{leaderName}
+        SET leader_password = #{leaderPass}, leader_name = #{leaderName}
         WHERE leader_id = #{leaderId};
     </update>
 </mapper>
