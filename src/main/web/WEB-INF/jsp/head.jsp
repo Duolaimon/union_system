@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String ip = "118.89.216.40";
+    String ip = "localhost";
 %>
 <html>
 <head>
