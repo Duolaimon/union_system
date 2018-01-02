@@ -5,7 +5,7 @@
   Time: 下午7:45
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>$Title$</title>
@@ -68,7 +68,7 @@
 <body>
 <img src="img/2014113017583752.jpg">
 <form method="post" <%--action="<%=request.getContextPath()%>admin/index" --%>class="form"
-    action="<%=request.getContextPath()%>/login/auth">
+    action="<%=request.getContextPath()%>/admin/index">
     <label>username:
     <input type="text" id="adminName" name="username">
 </label><br/>
